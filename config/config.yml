@@ -1,0 +1,25 @@
+app:
+  name: "go-clean-template"
+  version: "1.0.0"
+
+
+http:
+  port: "8080"
+
+
+logger:
+  log_level: "debug"
+  rollbar_env: "go-scaffold"
+
+
+postgres:
+  pool_max: 2
+  postgre_url: "postgresql://postgres:password@192.168.100.101:5432/db_pg"
+
+
+rabbitmq:
+  rpc_server_exchange: "rpc_server"
+  rpc_client_exchange: "rpc_client"
+  rpc_url: "amqp://guest:guest@192.168.100.101:5672/"
+
+

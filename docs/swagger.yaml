@@ -1,0 +1,92 @@
+definitions:
+  entity.Translation:
+    properties:
+      destination:
+        type: string
+      original:
+        type: string
+      source:
+        type: string
+      translation:
+        type: string
+    type: object
+  v1.doTranslateRequest:
+    properties:
+      destination:
+        type: string
+      original:
+        type: string
+      source:
+        type: string
+    required:
+    - destination
+    - original
+    - source
+    type: object
+  v1.historyResponse:
+    properties:
+      history:
+        items:
+          $ref: '#/definitions/entity.Translation'
+        type: array
+    type: object
+  v1.response:
+    properties:
+      error:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /v1/translation/do-translate:
+    post:
+      consumes:
+      - application/json
+      description: Translate a text
+      operationId: do-translate
+      parameters:
+      - description: Set up translation
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/v1.doTranslateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Translation'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.response'
+      summary: Translate
+      tags:
+      - translation
+  /v1/translation/history:
+    get:
+      consumes:
+      - application/json
+      description: Show all translation history
+      operationId: history
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.historyResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.response'
+      summary: Show history
+      tags:
+      - translation
+swagger: "2.0"
